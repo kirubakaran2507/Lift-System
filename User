@@ -1,0 +1,25 @@
+public class User {
+    private int userId;
+    private int floorNo;
+
+    public User(int userId,int floorNo){
+        this.userId = userId;
+        this.floorNo = floorNo;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setFloorNo(int floorNo) {
+        this.floorNo = floorNo;
+    }
+
+    public int getFloorNo() {
+        return floorNo;
+    }
+}
