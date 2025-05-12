@@ -1,0 +1,108 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class Lift {
+    private static int no = 1;
+    private int liftNo;
+    private int currentFloor;
+    private int fromFloor;
+    private int toFloor;
+    private int noOfStops;
+    int currentSize;
+    private int capacity;
+    private List<User> users;
+    private boolean isRunning;
+
+    public Lift(int initialFloor, int currentFloor, int fromFloor, int toFloor, int capacity) {
+        liftNo = no++;
+        this.initialFloor = initialFloor;
+        this.currentFloor = currentFloor;
+        this.fromFloor = fromFloor;
+        this.toFloor = toFloor;
+        this.noOfStops = (toFloor-fromFloor)+1;
+        currentSize = 0;
+        this.capacity = capacity;
+        users = new ArrayList<>();
+    }
+
+    public void setLiftNo(int liftNo) {
+        this.liftNo = liftNo;
+    }
+
+    public int getLiftNo() {
+        return liftNo;
+    }
+
+    public void setInitialFloor(int initialFloor) {
+        this.initialFloor = initialFloor;
+    }
+
+    public int getInitialFloor() {
+        return initialFloor;
+    }
+
+    public void setCurrentFloor(int currentFloor) {
+        this.currentFloor = currentFloor;
+    }
+
+    public int getCurrentFloor() {
+        return currentFloor;
+    }
+
+    public void setFromFloor(int fromFloor) {
+        this.fromFloor = fromFloor;
+    }
+
+    public int getFromFloor() {
+        return fromFloor;
+    }
+
+    public void setToFloor(int toFloor) {
+        this.toFloor = toFloor;
+    }
+
+    public int getToFloor() {
+        return toFloor;
+    }
+
+    public void setNoOfStops(int noOfStops) {
+        this.noOfStops = noOfStops;
+    }
+
+    public int getNoOfStops() {
+        return noOfStops;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCurrentSize(int currentSize) {
+        this.currentSize = currentSize;
+    }
+
+    public int getCurrentSize() {
+        return currentSize;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setIsRunning(boolean isRunning){
+        this.isRunning = isRunning;
+    }
+
+    public boolean getIsRunning(){
+        return isRunning;
+    }
+}
