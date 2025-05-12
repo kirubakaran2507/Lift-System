@@ -1,0 +1,88 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+class LiftSystem {
+    int noOfLifts;
+    List<Lift> lifts;
+
+    public LiftSystem() {
+        noOfLifts = 5;
+        lifts = new ArrayList<>();
+    }
+
+    public void addLifts() {
+        lifts.add(new Lift(0, 0, 0, 5, 8));
+        lifts.add(new Lift(0, 0, 0, 5, 8));
+        lifts.add(new Lift(0, 0, 6, 10, 8));
+        lifts.add(new Lift(0, 0, 6, 10, 8));
+        lifts.add(new Lift(0, 0, 0, 10, 8));
+    }
+
+    public void displayThePositionsOfLift(){
+        for (Lift lift : lifts){
+            System.out.println("L" + lift.getLiftNo() + " - " + lift.getCurrentFloor());
+        }
+    }
+
+    public List<Lift> getNearestLift(int floorNo){
+        int nearestDis = Integer.MAX_VALUE;
+        List<Lift> nearestLifts = new ArrayList<>();
+
+        for (Lift lift : lifts){
+            int distance = Math.abs(lift.getCurrentFloor()-floorNo);
+            nearestDis = Math.min(nearestDis,distance);
+        }
+
+        for (Lift lift : lifts){
+            int distance = Math.abs(lift.getCurrentFloor()-floorNo);
+            if (distance == nearestDis) nearestLifts.add(lift);
+        }
+        return nearestLifts;
+    }
+
+
+
+    public void goToDestinationFloor(int userCurrentFloor,int destinationFloor,int noOfPersons){
+        List<Lift> nearestLifts = getNearestLift(userCurrentFloor);
+        boolean upward = userCurrentFloor < destinationFloor;
+
+        List<Lift> allowedLifts = new ArrayList<>();
+
+        for (Lift nearestLift : nearestLifts){
+            if (upward && nearestLift.getCurrentFloor() <= userCurrentFloor) {
+                if (userCurrentFloor >= nearestLift.getFromFloor() && userCurrentFloor <= nearestLift.getCurrentFloor())
+                    allowedLifts.add(nearestLift);
+            } else if (!upward && nearestLift.getCurrentFloor() >= userCurrentFloor) {
+                if (userCurrentFloor >= nearestLift.getFromFloor() && userCurrentFloor <= nearestLift.getCurrentFloor())
+                    allowedLifts.add(nearestLift);
+            }
+        }
+
+        // if (allowedLifts.isEmpty()) allowedLifts = nearestLifts;
+
+        Lift lift = allowedLifts.get(0);
+
+        int minNoOfStops = Integer.MAX_VALUE;
+
+        for (Lift allowedLift : allowedLifts){
+            int noOfStops = allowedLift.getNoOfStops();
+            if (minNoOfStops > noOfStops){
+                lift = allowedLift;
+                minNoOfStops = noOfStops;
+            }
+        }
+        if (lift.getCurrentSize()<noOfPersons){
+            if (lift.getCurrentSize()==0)
+                System.out.println("Lift filled");
+            else
+                System.out.println("Lift has already " + lift.getCurrentSize() + " persons \n" + "Max capacity is " + lift.getCapacity());
+        }
+        lift.setCurrentFloor(destinationFloor);
+        lift.setCurrentSize(lift.getCurrentSize()-noOfPersons);
+    }
+
+    private boolean isValidFloor(int floorNo){
+        return (floorNo >= 0 && floorNo <= 10);
+    }
+}
